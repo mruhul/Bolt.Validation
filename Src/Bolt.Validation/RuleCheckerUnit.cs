@@ -48,7 +48,7 @@ namespace Bolt.Validation
             return ErrorMessage(string.Format(errorMessage, args));
         }
 
-        internal RuleCheckerUnit<TRuleChecker, TValue> DefaultErrorMessage(string errorMessage, params object[] args)
+        public RuleCheckerUnit<TRuleChecker, TValue> DefaultErrorMessage(string errorMessage, params object[] args)
         {
             _defaultErrorMessage = () => string.Format(errorMessage, args);
 
