@@ -1,6 +1,8 @@
-﻿using Bolt.Validation.Extensions;
+﻿using System.Diagnostics;
+using Bolt.Validation.Extensions;
 using Should;
 using Xunit;
+using Xunit.Extensions;
 
 namespace Bolt.Validation.UnitTests
 {
@@ -27,6 +29,26 @@ namespace Bolt.Validation.UnitTests
                 .Result();
 
             result.IsPassed.ShouldBeFalse();
+        }
+
+        [Theory]
+        [InlineData(null, true)]
+        [InlineData("Hello world", false)]
+        [InlineData("mruhul@gmail.com", true)]
+        public void Email(string email, bool pass)
+        {
+            var input = new TestEntity {Email = email};
+
+            var result = RuleChecker<TestEntity>.For(input)
+                .Check(x => x.Email)
+                .Email()
+                .Result();
+
+            result.IsPassed.ShouldEqual(pass);
+            if (!result.IsPassed)
+            {
+                result.Errors[0].ErrorMessage.ShouldEqual("Email is not a valid email address");
+            }
         }
     }
 }

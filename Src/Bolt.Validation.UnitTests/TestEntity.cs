@@ -11,5 +11,6 @@ namespace Bolt.Validation.UnitTests
         public string Name { get; set; }
         public int? Age { get; set; }
         public int Average { get; set; }
+        public string Email { get; set; }
     }
 }
